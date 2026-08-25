@@ -9,7 +9,6 @@ import {
 import { Toaster } from 'sonner';
 import type { Route } from './+types/root';
 import './app.css';
-import { GenericHeader } from './components/layout/header/main-view';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -26,7 +25,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,10 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <main>
-      <GenericHeader />
-      <Outlet />
-    </main>
+    <Outlet />
   );
 }
 
