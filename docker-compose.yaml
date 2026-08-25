@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+
+    container_name: x-api-key-eliascardona
+
+    restart: unless-stopped
+
+    environment:
+      SERVER_API_URL: ${SERVER_API_URL:-http://localhost:8082/api/}
+      VITE_API_URL: ${VITE_API_URL:-http://backend:8082/api/}
+
+    ports:
+      - '3000:3000'
+
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
