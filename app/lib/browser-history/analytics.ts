@@ -1,6 +1,13 @@
 import type { BrowserHistoryRecord } from './schema';
 
 export function domainOf(url: string) { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return 'unknown'; } }
+
+export const domainAccentPalette = ['#0ea5e9', '#f97316', '#22c55e', '#a855f7', '#eab308', '#ec4899', '#14b8a6', '#ef4444'] as const;
+
+export function domainAccentMap(records: BrowserHistoryRecord[]) {
+  const domains = [...new Set(records.map((record) => domainOf(record.navigatedToUrl)))].sort();
+  return new Map(domains.map((domain, index) => [domain, domainAccentPalette[index % domainAccentPalette.length]]));
+}
 export function summarize(records: BrowserHistoryRecord[]) {
   const domains = new Set(records.map((record) => domainOf(record.navigatedToUrl)));
   const days = new Set(records.map((record) => record.dateTime.toISOString().slice(0, 10)));
