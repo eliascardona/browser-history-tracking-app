@@ -11,8 +11,8 @@ import { parseFiles, type ParsedCsv } from '~/lib/browser-history/csv';
 import { dayBuckets, domainAccentMap, domainOf, summarize, topDomains } from '~/lib/browser-history/analytics';
 import type { BrowserHistoryRecord } from '~/lib/browser-history/schema';
 
-const monthName = new Intl.DateTimeFormat('en', { month: 'long' });
-const shortMonth = new Intl.DateTimeFormat('en', { month: 'short' });
+const monthName = new Intl.DateTimeFormat('en', { month: 'long', timeZone: 'UTC' });
+const shortMonth = new Intl.DateTimeFormat('en', { month: 'short', timeZone: 'UTC' });
 const dayKey = (date: Date) => date.toISOString().slice(0, 10);
 const monthKey = (date: Date) => date.toISOString().slice(0, 7);
 function isoWeek(date: Date) { const copy = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())); const day = copy.getUTCDay() || 7; copy.setUTCDate(copy.getUTCDate() + 4 - day); const yearStart = new Date(Date.UTC(copy.getUTCFullYear(), 0, 1)); return `${copy.getUTCFullYear()}-W${String(Math.ceil((((copy.getTime() - yearStart.getTime()) / 86400000) + 1) / 7)).padStart(2, '0')}`; }
